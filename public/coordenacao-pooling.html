@@ -1,25 +1,41 @@
-<h2>Coordenação - Polling</h2>
-<ul id="lista"></ul>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diário Escolar</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="lista.css" />
+  </head>
+  <body>
+    <nav class="menu">
+      <div class="menu-container">
+        <span class="logo">📘 Diário Escolar</span>
+        <div class="links">
+          <a href="/professor.html">Professor</a>
+          <a href="/coordenacao-ws.html">Coordenação WS</a>
+          <a href="/coordenacao-pooling.html">Coordenação pooling</a>
+          <a href="/coordenacao-long.html">Coordenação Long</a>
+        </div>
+      </div>
+    </nav>
 
-<script>
-    async function atualizar() {
-        const res = await fetch("/diario");
-        const diario = await res.json();
+    <main class="container">
+      <h2>Coordenação - pooling</h2>
+      <ul id="lista-pooling" class="lista-presenca"></ul>
 
-        const dataHoje = new Date().toISOString().split("T")[0];
-        const aula = diario.aulas ? diario.aulas.find(a => a.data === dataHoje) : null;
+      <script type="module">
+        import { atualizarLista } from "./render.js";
 
-        const lista = document.getElementById("lista");
-        lista.innerHTML = "";
+        async function atualizar() {
+          const res = await fetch("/diario");
+          const diario = await res.json();
 
-        if (!aula) return;
+          atualizarLista(diario, "lista-pooling");
+        }
 
-        diario.alunos.forEach(aluno => {
-            const status = aula.presencas[aluno.matricula] || "Não marcado";
-            lista.innerHTML += `<li>${aluno.nome} - ${status}</li>`;
-        });
-    }
-
-    setInterval(atualizar, 3000);
-    atualizar();
-</script>
+        setInterval(atualizar, 3000);
+        atualizar();
+      </script>
+    </main>
+  </body>
+</html>

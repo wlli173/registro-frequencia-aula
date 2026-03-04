@@ -1,0 +1,133 @@
+/* ===============================
+   ESTILO PADRÃO - LISTA DE PRESENÇA
+   =============================== */
+
+.lista-presenca {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Itens da lista */
+.lista-presenca li {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #ffffff;
+    transition: background 0.2s ease, transform 0.1s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Remove borda do último */
+.lista-presenca li:last-child {
+    border-bottom: none;
+}
+
+/* Hover suave */
+.lista-presenca li:hover {
+    background-color: #f5f7fa;
+    transform: translateX(3px);
+}
+
+/* Nome do aluno */
+.aluno-nome {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+/* Badge base */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Presente */
+.status-presente {
+    background-color: #e6f4ea;
+    color: #1e8e3e;
+}
+
+/* Ausente */
+.status-ausente {
+    background-color: #fdecea;
+    color: #d93025;
+}
+
+/* Não marcado */
+.status-nao-marcado {
+    background-color: #f1f3f4;
+    color: #6b7280;
+}
+
+.lista-presenca li {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Área de botões */
+.acoes-professor {
+    display: flex;
+    gap: 6px;
+}
+
+/* Botões base */
+.acoes-professor button {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.acoes-professor button:hover {
+    opacity: 0.8;
+}
+
+/* Presente */
+.acoes-professor button:first-child {
+    background-color: #1e8e3e;
+    color: white;
+}
+
+/* Ausente */
+.acoes-professor button:last-child {
+    background-color: #d93025;
+    color: white;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   RESPONSIVIDADE
+   =============================== */
+
+@media (max-width: 600px) {
+    .lista-presenca {
+        max-width: 100%;
+    }
+
+    .lista-presenca li {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}

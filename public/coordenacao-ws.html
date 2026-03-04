@@ -1,112 +1,85 @@
-<h2>
-    Coordenação - WebSocket
-    <span id="status">🔴</span>
-</h2>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diário Escolar</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="lista.css" />
+  </head>
+  <body>
+    <nav class="menu">
+      <div class="menu-container">
+        <span class="logo">📘 Diário Escolar</span>
+        <div class="links">
+          <a href="/professor.html">Professor</a>
+          <a href="/coordenacao-ws.html">Coordenação WS</a>
+          <a href="/coordenacao-pooling.html">Coordenação pooling</a>
+          <a href="/coordenacao-long.html">Coordenação Long</a>
+        </div>
+      </div>
+    </nav>
 
-<button id="btnConectar">Conectar</button>
-<button id="btnDesconectar" disabled>Desconectar</button>
+    <main class="container">
+      <h2>
+        Coordenação - WebSocket
+        <span id="status">🔴</span>
+      </h2>
 
-<ul id="lista"></ul>
+      <button id="btnConectar">Conectar</button>
+      <button id="btnDesconectar" disabled>Desconectar</button>
 
-<script>
-    const statusSpan = document.getElementById("status");
-    const lista = document.getElementById("lista");
-    const btnConectar = document.getElementById("btnConectar");
-    const btnDesconectar = document.getElementById("btnDesconectar");
+      <ul id="lista-ws" class="lista-presenca"></ul>
 
-    let socket = null;
+      <script type="module">
+        import { atualizarLista } from "./render.js";
 
-    // -------------------------
-    // CONECTAR
-    // -------------------------
-    function conectar() {
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            console.log("Já está conectado.");
-            return;
-        }
+        const statusSpan = document.getElementById("status");
+        const btnConectar = document.getElementById("btnConectar");
+        const btnDesconectar = document.getElementById("btnDesconectar");
 
-        socket = new WebSocket("ws://localhost:3000");
+        let socket = null;
 
-        socket.addEventListener("open", () => {
+        function conectar() {
+          if (socket && socket.readyState === WebSocket.OPEN) return;
+
+          socket = new WebSocket("ws://localhost:3000");
+
+          socket.addEventListener("open", () => {
             atualizarStatus("🟢", "Conectado");
             btnConectar.disabled = true;
             btnDesconectar.disabled = false;
-            console.log("WebSocket conectado");
-        });
+          });
 
-        socket.addEventListener("message", (event) => {
+          socket.addEventListener("message", (event) => {
             try {
-                console.log(event);
-                const diario = JSON.parse(event.data);
-                render(diario);
+              const diario = JSON.parse(event.data);
+              atualizarLista(diario, "lista-ws");
             } catch (erro) {
-                console.error("Erro ao processar mensagem:", erro);
+              console.error("Erro ao processar mensagem:", erro);
             }
-        });
+          });
 
-        socket.addEventListener("close", () => {
+          socket.addEventListener("close", () => {
             atualizarStatus("🔴", "Desconectado");
             btnConectar.disabled = false;
             btnDesconectar.disabled = true;
-            console.log("WebSocket desconectado");
-        });
+          });
+        }
 
-        socket.addEventListener("error", (erro) => {
-            console.error("Erro no WebSocket:", erro);
-        });
-    }
-
-    // -------------------------
-    // DESCONECTAR
-    // -------------------------
-    function desconectar() {
-        if (socket && socket.readyState === WebSocket.OPEN) {
+        function desconectar() {
+          if (socket && socket.readyState === WebSocket.OPEN) {
             socket.close(1000, "Encerrado pelo cliente");
-        }
-    }
-
-    btnConectar.addEventListener("click", conectar);
-    btnDesconectar.addEventListener("click", desconectar);
-
-    // -------------------------
-    // FUNÇÕES AUXILIARES
-    // -------------------------
-
-    function atualizarStatus(icone, texto) {
-        statusSpan.textContent = icone;
-        statusSpan.title = texto;
-    }
-
-    function render(diario) {
-        lista.innerHTML = "";
-
-        if (!diario?.aulas || !diario?.alunos) {
-            mostrarMensagem("Dados inválidos recebidos.");
-            return;
+          }
         }
 
-        const dataHoje = new Date().toISOString().split("T")[0];
-        const aulaHoje = diario.aulas.find(a => a.data === dataHoje);
-
-        if (!aulaHoje) {
-            return;
+        function atualizarStatus(icone, texto) {
+          statusSpan.textContent = icone;
+          statusSpan.title = texto;
         }
 
-        const fragment = document.createDocumentFragment();
-
-        diario.alunos.forEach(aluno => {
-            const li = document.createElement("li");
-            const status = aulaHoje.presencas?.[aluno.matricula] || "Não marcado";
-            li.textContent = `${aluno.nome} - ${status}`;
-            fragment.appendChild(li);
-        });
-
-        lista.appendChild(fragment);
-    }
-
-    function mostrarMensagem(texto) {
-        const li = document.createElement("li");
-        li.textContent = texto;
-        lista.appendChild(li);
-    }
-</script>
+        btnConectar.addEventListener("click", conectar);
+        btnDesconectar.addEventListener("click", desconectar);
+      </script>
+    </main>
+  </body>
+</html>
