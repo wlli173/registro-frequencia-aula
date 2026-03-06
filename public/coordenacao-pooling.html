@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Diário Escolar</title>
-    <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="lista.css" />
+    <link rel="stylesheet" href="/assets/css/global.css" />
+    <link rel="stylesheet" href="/assets/css/lista.css" />
   </head>
   <body>
     <nav class="menu">
@@ -24,7 +24,7 @@
       <ul id="lista-pooling" class="lista-presenca"></ul>
 
       <script type="module">
-        import { atualizarLista } from "./render.js";
+        import { atualizarLista } from "./utils/render.js";
 
         async function atualizar() {
           const res = await fetch("/diario");

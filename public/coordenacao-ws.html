@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Diário Escolar</title>
-    <link rel="stylesheet" href="global.css" />
-    <link rel="stylesheet" href="lista.css" />
+    <link rel="stylesheet" href="/assets/css/global.css" />
+    <link rel="stylesheet" href="/assets/css/lista.css" />
   </head>
   <body>
     <nav class="menu">
@@ -31,7 +31,7 @@
       <ul id="lista-ws" class="lista-presenca"></ul>
 
       <script type="module">
-        import { atualizarLista } from "./render.js";
+        import { atualizarLista } from "./utils/render.js";
 
         const statusSpan = document.getElementById("status");
         const btnConectar = document.getElementById("btnConectar");

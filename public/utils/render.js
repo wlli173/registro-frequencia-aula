@@ -45,7 +45,7 @@ export function atualizarLista(diario, listaId = "lista", opcoes = {}) {
     li.appendChild(nomeSpan);
     li.appendChild(statusSpan);
 
-    // 🔥 MODO PROFESSOR
+    // MODO PROFESSOR
     if (modoProfessor && aulaHoje) {
       const botoesDiv = document.createElement("div");
       botoesDiv.classList.add("acoes-professor");
