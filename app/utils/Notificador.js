@@ -14,23 +14,23 @@ class Notificador {
 
   notificar(diario) {
     console.log("Notificando clientes...");
-    console.log("Clientes WebSocket:", wss.clients.size);
-    console.log("Clientes Long Polling:", longPollingClients.length);
+    console.log("Clientes WebSocket:", this.wss.clients.size);
+    console.log("Clientes Long Polling:", this.longPollingClients.length);
 
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+    this.wss.clients.forEach((client) => {
+      if (client.readyState === 1) {
         console.log("Enviando atualização via WebSocket");
         client.send(JSON.stringify(diario));
       }
     });
 
-    longPollingClients.forEach((res) => {
+    this.longPollingClients.forEach((res) => {
       try {
         res.json(diario);
       } catch (e) {}
     });
 
-    longPollingClients = [];
+    this.longPollingClients = [];
   }
 }
 

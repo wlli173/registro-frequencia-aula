@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // ===== Iniciar componentes =====
-const diario = new Diario("diario.json");
+const diario = new Diario("./app/data/diario.json");
 const notificador = new Notificador(wss);
 const aulaController = new AulaController(diario, notificador);
 const presencaController = new PresencaController(diario, notificador);
@@ -40,7 +40,7 @@ wss.on("connection", ws => {
         console.log("Erro no WebSocket:", err.message);
     });
 
-    ws.send(JSON.stringify(diario));
+    ws.send(JSON.stringify(diario.obterDados()));
 });
 
 // ===== Configurar rotas =====

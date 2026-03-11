@@ -1,6 +1,30 @@
 {
-  "turma": "Desenvolvimento Web II",
-  "professor": "Fabricio Bizotto",
+  "aulas": [
+    {
+      "data": "2026-03-11",
+      "presencas": {
+        "1": "Presente",
+        "2": "Presente",
+        "3": "Presente",
+        "4": "Presente",
+        "5": "Presente",
+        "6": "Presente",
+        "7": "Presente",
+        "8": "Presente",
+        "9": "Presente",
+        "10": "Presente",
+        "11": "Presente",
+        "12": "Presente",
+        "13": "Presente",
+        "14": "Presente",
+        "15": "Presente",
+        "16": "Presente",
+        "17": "Presente",
+        "18": "Presente",
+        "19": "Presente"
+      }
+    }
+  ],
   "alunos": [
     {
       "matricula": "1",
@@ -77,37 +101,6 @@
     {
       "matricula": "19",
       "nome": "ZACK ZAYRY GOMES DA SILVA"
-    }
-  ],
-  "aulas": [
-    {
-      "data": "2026-02-25",
-      "presencas": {}
-    },
-    {
-      "data": "2026-02-26",
-      "presencas": {
-        "1": "Ausente",
-        "2": "Ausente",
-        "3": "Ausente",
-        "8": "Ausente",
-        "19": "Presente"
-      }
-    },
-    {
-      "data": "2026-02-27",
-      "presencas": [
-        null,
-        "Ausente",
-        "Presente"
-      ]
-    },
-    {
-      "data": "2026-03-04",
-      "presencas": {
-        "1": "Presente",
-        "2": "Presente"
-      }
     }
   ]
 }
