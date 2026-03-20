@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 class Diario {
-  constructor(filePath = "../data/diario.json") {
+  constructor(filePath = path.join(__dirname, "../data/diario.json")) {
     this.filePath = filePath;
     this.carregar();
   }

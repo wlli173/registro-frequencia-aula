@@ -1,14 +1,15 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const http = require("http");
 const WebSocket = require("ws");
 
 // ========== Imports ==========
-const Diario = require("./app/models/Diario");
-const Notificador = require("./app/utils/Notificador");
-const AulaController = require("./app/controllers/AulaController");
-const PresencaController = require("./app/controllers/PresencaController");
-const configurarRotas = require("./app/routes/routes");
+const Diario = require(path.join(__dirname, "app/models/Diario"));
+const Notificador = require(path.join(__dirname,"./app/utils/Notificador"));
+const AulaController = require(path.join(__dirname, "./app/controllers/AulaController"));
+const PresencaController = require(path.join(__dirname, "./app/controllers/PresencaController"));
+const configurarRotas = require(path.join(__dirname, "./app/routes/routes"));
 
 // ===== setup =====
 const app = express();
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // ===== Iniciar componentes =====
-const diario = new Diario("./app/data/diario.json");
+const diario = new Diario(path.join(__dirname, "./app/data/diario.json"));
 const notificador = new Notificador(wss);
 const aulaController = new AulaController(diario, notificador);
 const presencaController = new PresencaController(diario, notificador);
